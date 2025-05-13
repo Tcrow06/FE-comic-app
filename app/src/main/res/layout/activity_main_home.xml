@@ -48,14 +48,14 @@
         android:weightSum="1">
 
         <!-- Avatar -->
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/avatar"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@drawable/logo_tq"
-            android:background="@drawable/circle_bg"
+            android:scaleType="centerCrop"
             android:contentDescription="Avatar"
-            android:layout_weight="0" />
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.App.Circle" />
 
         <!-- Thông tin người dùng -->
         <LinearLayout
