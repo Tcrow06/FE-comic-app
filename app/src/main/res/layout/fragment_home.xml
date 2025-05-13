@@ -18,13 +18,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1" />
+        app:layout_constraintGuide_percent="0.05" />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guide_5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_percent="0.45" />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guide_10"
         android:layout_width="wrap_content"
@@ -34,21 +34,21 @@
 
 
     <!-- Search bar -->
-    <EditText
-        android:id="@+id/search_bar"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
-        android:drawablePadding="10dp"
-        android:hint="Cari komik..."
-        android:drawableStart="@drawable/ic_search_16"
-        android:background="@drawable/search_background"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        app:layout_constraintTop_toBottomOf="@id/guide_0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginHorizontal="16dp" />
+<!--    <EditText-->
+<!--        android:id="@+id/search_bar"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="48dp"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:drawablePadding="10dp"-->
+<!--        android:hint="Cari komik..."-->
+<!--        android:drawableStart="@drawable/ic_search_16"-->
+<!--        android:background="@drawable/search_background"-->
+<!--        android:paddingStart="16dp"-->
+<!--        android:paddingEnd="16dp"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/guide_0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        android:layout_marginHorizontal="16dp" />-->
 
     <!-- Trending Manga -->
     <TextView
@@ -97,7 +97,7 @@
         />
 
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/listManga"
+        android:id="@+id/listStory"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"

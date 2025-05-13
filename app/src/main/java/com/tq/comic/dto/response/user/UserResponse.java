@@ -1,5 +1,7 @@
 package com.tq.comic.dto.response.user;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.tq.comic.constant.RoleEnum;
 
 import lombok.*;
@@ -13,6 +15,7 @@ import java.util.Set;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserResponse {
     String id;
     String username;
@@ -20,7 +23,8 @@ public class UserResponse {
     String firstName;
     String lastName;
     String email;
-    LocalDate dob;
+
+    String dob;
     Integer isActive;
     String picture;
     Set<RoleEnum> roles;

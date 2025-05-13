@@ -1,5 +1,7 @@
 package com.tq.comic.config;
 
+import android.content.Context;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
@@ -14,6 +16,8 @@ public class RetrofitClient {
 
     private static Retrofit retrofitWithoutAuth;
     private static Retrofit retrofitWithAuth;
+    private static String currentToken = null;
+
 
     public static Retrofit getRetrofitInstance() {
         if (retrofitWithoutAuth == null) {
@@ -41,6 +45,30 @@ public class RetrofitClient {
                 .client(client)
                 .addConverterFactory(JacksonConverterFactory.create(objectMapper))
                 .build();
+
+        return retrofitWithAuth;
+    }
+
+    // Retrofit có token (dành cho các API yêu cầu access token)
+    public static Retrofit getRetrofitWithAuth(Context context, String token) {
+        if (retrofitWithAuth == null || currentToken == null || !currentToken.equals(token)) {
+            currentToken = token;
+
+            OkHttpClient client = new OkHttpClient.Builder()
+                    .addInterceptor(new AuthInterceptor(token))
+                    .authenticator(new TokenAuthenticator(context))
+                    .build();
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.registerModule(new JavaTimeModule());
+            objectMapper.findAndRegisterModules();
+
+            retrofitWithAuth = new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .client(client)
+                    .addConverterFactory(JacksonConverterFactory.create(objectMapper))
+                    .build();
+        }
 
         return retrofitWithAuth;
     }

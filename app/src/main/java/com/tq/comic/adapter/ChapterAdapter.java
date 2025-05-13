@@ -64,8 +64,8 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.ChapterV
             super(itemView);
             chapterNumber = itemView.findViewById(R.id.chapterNumber);
             chapterTitle = itemView.findViewById(R.id.chapterTitle);
-            chapterPageCount = itemView.findViewById(R.id.chapterPageCount);
-            imgRead = itemView.findViewById(R.id.imgRead);
+//            chapterPageCount = itemView.findViewById(R.id.chapterPageCount);
+//            imgRead = itemView.findViewById(R.id.imgRead);
             imgAllowRead = itemView.findViewById(R.id.imgAllowRead);
             imgAllowLock = itemView.findViewById(R.id.imgAllowLock);
         }

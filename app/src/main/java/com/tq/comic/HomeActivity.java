@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.tabs.TabLayout;
+import com.tq.comic.adapter.MangaAdapter;
 import com.tq.comic.model.Manga;
 
 import java.util.ArrayList;

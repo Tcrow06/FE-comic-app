@@ -7,13 +7,27 @@ public class Manga  implements Serializable {
     public String title;
     public String author;
     public String chapter;
+    private String image;
     public int imageResId;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public Manga(String title, String author, int imageResId) {
         this.title = title;
         this.author = author;
         this.chapter = "";
         this.imageResId = imageResId;
+    }
+    public Manga(String title, String author) {
+        this.title = title;
+        this.author = author;
+        this.chapter = "";
     }
 
     public Manga(String title, String author, String chapter, int imageResId) {

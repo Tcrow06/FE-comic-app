@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.tq.comic.R;
+import com.tq.comic.adapter.MangaAdapter;
 import com.tq.comic.databinding.FragmentHomeBinding;
 import com.tq.comic.databinding.FragmentMangaBinding;
 import com.tq.comic.model.Manga;

@@ -18,9 +18,11 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.tq.comic.config.PrefManager;
+import com.tq.comic.dto.request.authentication.ActiveAccountRequest;
 import com.tq.comic.dto.request.authentication.LoginRequest;
 import com.tq.comic.dto.response.ApiResponse;
 import com.tq.comic.dto.response.authentication.AuthenticationResponse;
+import com.tq.comic.dto.response.authentication.ResendOtpResponse;
 import com.tq.comic.dto.response.user.UserResponse;
 import com.tq.comic.exception.ErrorResponse;
 import com.tq.comic.service.auth.AuthAPIService;
@@ -67,15 +69,11 @@ public class LoginActivity extends AppCompatActivity {
             EditText usernameEditText = findViewById(R.id.usernameEditText);
             EditText passwordEditText = findViewById(R.id.passwordEditText);
 
-            String username = usernameEditText.getText().toString().trim();
-            String password = passwordEditText.getText().toString().trim();
-//
-//            username = findViewById(R.id.usernameEditText).toString();
-//            password = findViewById(R.id.passwordEditText).toString();
+            username = usernameEditText.getText().toString().trim();
+            password = passwordEditText.getText().toString().trim();
 
             if (username.isEmpty() || password.isEmpty()) {
                 Snackbar.make(v, "Vui lòng nhập tài khoản và mật khẩu!", Snackbar.LENGTH_SHORT).show();
-//                Toast.makeText(LoginActivity.this, "Vui lòng nhập tài khoản và mật khẩu!", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -89,47 +87,35 @@ public class LoginActivity extends AppCompatActivity {
 
             login(username,password);
 
-//            apiService.login(request).enqueue(new Callback<ApiResponse<AuthenticationResponse>>() {
-//                @Override
-//                public void onResponse(Call<ApiResponse<AuthenticationResponse>> call, Response<ApiResponse<AuthenticationResponse>> response) {
-//                    if (response.isSuccessful() && response.body() != null) {
-//                        Snackbar.make(v,"Đăng nhập thành công!", Snackbar.LENGTH_SHORT).show();
-//                        Toast.makeText(LoginActivity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
-//                        Log.d("MainActivity", "Đăng nhập thành công!");
-//                        AuthenticationResponse authenticationResponse = response.body().getResult();
-//
-//                        String token = authenticationResponse.getToken();
-//
-//                        Intent intent = new Intent(LoginActivity.this, MainHomeActivity.class);
-//                        startActivity(intent);
-//                        finish();
-//                    }
-//                    else if (response.errorBody()!=null){
-//                        try {
-//                            Gson gson = new Gson();
-//                            ErrorResponse error = gson.fromJson(response.errorBody().charStream(), ErrorResponse.class);
-//
-//                            Log.e("LoginError", "Code: " + error.getCode() + ", Message: " + error.getMessage());
-//                            Snackbar.make(v, "Lỗi: " + error.getMessage(), Snackbar.LENGTH_LONG).show();
-////                            Toast.makeText(LoginActivity.this, "Lỗi: " + error.getMessage(), Toast.LENGTH_LONG).show();
-//                        } catch (Exception e) {
-//                            Log.e("LoginError", "Exception parsing error body", e);
-//                            Snackbar.make(v, "Lỗi: " + "Lỗi không xác định", Snackbar.LENGTH_LONG).show();
-////                            Toast.makeText(LoginActivity.this, "Lỗi không xác định", Toast.LENGTH_LONG).show();
-//                        }
-//                    }
-//                }
-//
-//                @Override
-//                public void onFailure(Call<ApiResponse<AuthenticationResponse>> call, Throwable t) {
-//                    Snackbar.make(v,"Lỗi kết nối: ", Snackbar.LENGTH_SHORT).show();
-//                    Toast.makeText(LoginActivity.this, "Lỗi kết nối: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-//                    Log.e("MainActivity", "Lỗi kết nối: " + t.getMessage());
-//                }
-//            });
-//            Intent intent = new Intent(LoginActivity.this, MainHomeActivity.class);
-//            startActivity(intent);
+
         });
+    }
+
+    private void getProfile(){
+        PrefManager prefManager = new PrefManager(LoginActivity.this);
+        AuthenticationResponse authenticationResponse = prefManager.getAuthResponse();
+
+       try{
+           UserService userService = new UserService(prefManager.getAuthResponse().getAccessToken());
+           userService.getUserProfile(new ServiceExecutor.CallBack<UserResponse>() {
+               @Override
+               public void onSuccess(ApiResponse<UserResponse> result) {
+                   userResponse = result.getResult();
+                   prefManager.saveUserResponse(userResponse);
+
+                   Intent intent = new Intent(LoginActivity.this, MainHomeActivity.class);
+                   startActivity(intent);
+
+               }
+               @Override
+               public void onFailure(String errorMessage) {
+                   Log.e("getProfile", "Lỗi gọi API: " + errorMessage);
+                   Toast.makeText(LoginActivity.this, "Lỗi: " + errorMessage, Toast.LENGTH_SHORT).show();
+               }
+           });
+       }catch (Exception e){
+           e.getMessage();
+       }
     }
 
     private void login(String email, String password) {
@@ -143,30 +129,15 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onSuccess(ApiResponse<AuthenticationResponse> result) {
                 if (result.getResult() != null) {
-                    // Navigate to password entry
+
                     PrefManager prefManager = new PrefManager(LoginActivity.this);
                     prefManager.saveAuthResponse(result.getResult());
 
-
-
-                    UserService userService = new UserService(prefManager.getAuthResponse().getToken());
-                    userService.getUserProfile(new ServiceExecutor.CallBack<UserResponse>() {
-                        @Override
-                        public void onSuccess(ApiResponse<UserResponse> result) {
-                            userResponse = result.getResult();
-                            prefManager.saveUserResponse(userResponse);
-
-                        }
-                        @Override
-                        public void onFailure(String errorMessage) {
-                            Toast.makeText(LoginActivity.this, "Lỗi: " + errorMessage, Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    Toast.makeText(LoginActivity.this, "Đăng nhập thành công !", Toast.LENGTH_SHORT).show();
 
                     Intent intent = new Intent(LoginActivity.this, MainHomeActivity.class);
                     startActivity(intent);
 
-                    Toast.makeText(LoginActivity.this, "Đăng nhập thành công !", Toast.LENGTH_SHORT).show();
                 } else {
 
                 }
@@ -175,6 +146,24 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(String errorMessage) {
                 Toast.makeText(LoginActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                if(errorMessage.equals("You must verify your account.")){
+                    Intent intent = new Intent(LoginActivity.this, OptVerificationActivity.class);
+                    authService.resendOtpUsername(new ActiveAccountRequest(username,null, null) ,new AuthService.CallBack<ResendOtpResponse>() {
+                        @Override
+                        public void onSuccess(ApiResponse<ResendOtpResponse> result) {
+                            if (result.getResult() != null) {
+                                intent.putExtra("email", result.getResult().getEmail());
+                                startActivity(intent);
+                            } else {
+                                Toast.makeText(LoginActivity.this, "Lôi không xác định không thể đăng nhập", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        @Override
+                        public void onFailure(String errorMessage) {
+                            Toast.makeText(LoginActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
         });
     }
