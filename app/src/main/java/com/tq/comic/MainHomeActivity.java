@@ -1,5 +1,6 @@
 package com.tq.comic;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -16,8 +19,13 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.tq.comic.adapter.ViewPager2_MainHomeAdapter;
+import com.tq.comic.config.PrefManager;
 import com.tq.comic.databinding.ActivityMainHomeBinding;
+import com.tq.comic.dto.request.authentication.IntrospectRequest;
+import com.tq.comic.dto.response.ApiResponse;
 import com.tq.comic.dto.response.authentication.AuthenticationResponse;
+import com.tq.comic.dto.response.authentication.IntrospectResponse;
+import com.tq.comic.service.auth.AuthService;
 
     public class MainHomeActivity extends BaseActivity {
 

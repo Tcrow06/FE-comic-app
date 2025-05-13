@@ -15,17 +15,23 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.tq.comic.LoginActivity;
+import com.tq.comic.MangaDetailActivity;
 import com.tq.comic.R;
 import com.tq.comic.adapter.MangaAdapter;
 import com.tq.comic.adapter.StoryAdapter;
 import com.tq.comic.config.PrefManager;
+import com.tq.comic.databinding.FragmentMangaBinding;
 import com.tq.comic.databinding.FragmentStorySavedBinding;
+import com.tq.comic.dto.request.other.FavoriteRequest;
 import com.tq.comic.dto.response.ApiResponse;
 import com.tq.comic.dto.response.authentication.AuthenticationResponse;
+import com.tq.comic.dto.response.other.FavoriteResponse;
 import com.tq.comic.dto.response.story.StoryResponse;
+import com.tq.comic.model.Manga;
 import com.tq.comic.service.callback.ServiceExecutor;
 import com.tq.comic.service.favorite.FavoriteService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StorySavedFragment extends Fragment {
