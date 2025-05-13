@@ -13,10 +13,13 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
+import retrofit2.http.Query;
 
 public interface UserAPIService {
-    @GET("/api/user/my-info")
+    @GET("api/user/my-info")
     Call<ApiResponse<UserResponse>> getUserProfile();
+    @GET("api/user")
+    Call<ApiResponse<UserResponse>> getInfo(@Query("username") String username);
 
     @Multipart
     @POST("auth/outbound/active-account")

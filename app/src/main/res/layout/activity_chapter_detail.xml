@@ -1,0 +1,124 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FAFAFA">
+
+    <!-- Thanh tiêu đề với bóng đổ -->
+    <LinearLayout
+        android:id="@+id/thanhTieuDe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@android:color/white"
+        android:elevation="4dp"
+        android:padding="16dp">
+
+        <!-- Tiêu đề truyện -->
+        <TextView
+            android:id="@+id/tieuDeTruyen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Tên Truyện"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:textColor="#212121"
+            android:paddingBottom="8dp"
+            android:fontFamily="sans-serif-medium"/>
+
+        <!-- Thông tin chương -->
+        <TextView
+            android:id="@+id/thongTinChuong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Chương 1: Bước đầu của Nhậm Kiều!"
+            android:textSize="18sp"
+            android:textColor="#757575"
+            android:fontFamily="sans-serif-light"/>
+    </LinearLayout>
+
+    <!-- Nội dung truyện -->
+    <ScrollView
+        android:id="@+id/vungCuon"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@id/thanhTieuDe"
+        android:layout_above="@id/thanhDieuHuong"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="16dp"
+        android:background="#FAFAFA">
+
+        <WebView
+            android:id="@+id/noiDungTruyen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Đầu là lực ly, một năm nay Dương Tâm vừa mò mẫm su Ngốc Tử Cương, một năm nay thế giới đặc sắc vừa mới bắt đầu...\n\nThiên Đầu đề quốc, Thì Thức phú.\n\nThiên Nhiên Tuyết chậm rãi từ phòng tắm bên trong bước ra. Cô vừa tắm xong, trên người còn vương lại mùi hương dịu nhẹ của sữa tắm hoa oải hương. Ánh nắng buổi sớm xuyên qua cửa sổ, chiếu lên mái tóc dài óng ả của cô, tạo nên một khung cảnh đẹp như tranh vẽ.\n\nTrên bàn gỗ nhỏ cạnh cửa sổ, một tách trà nóng vẫn còn bốc khói nghi ngút. Dương Tâm ngồi xuống, nhấc tách trà lên, nhấp một ngụm nhỏ. Vị trà thanh mát lan tỏa trong miệng, khiến cô cảm thấy thư thái hơn bao giờ hết. Hôm nay là một ngày đặc biệt, ngày mà cô quyết định sẽ bắt đầu hành trình mới của mình.\n\nTừ nhỏ, Dương Tâm đã luôn mơ ước được khám phá thế giới bên ngoài. Cô lớn lên ở một ngôi làng nhỏ nằm giữa thung lũng, nơi mà mọi người sống một cuộc đời bình dị, không có quá nhiều tham vọng. Nhưng Dương Tâm thì khác, cô luôn khao khát được nhìn thấy những chân trời mới, được trải nghiệm những điều mà cô chỉ từng nghe qua trong những câu chuyện kể.\n\nHôm nay, cô sẽ rời khỏi làng, bắt đầu chuyến đi của mình. Hành trang của cô chỉ là một chiếc ba lô cũ kỹ, vài bộ quần áo, và một cuốn nhật ký mà cô đã viết từ khi còn nhỏ. Trong cuốn nhật ký ấy, cô ghi lại những giấc mơ, những hy vọng, và cả những nỗi sợ hãi của mình.\n\nDương Tâm đứng dậy, bước ra khỏi căn nhà nhỏ. Cô nhìn lại ngôi làng lần cuối, trong lòng trào dâng một cảm giác lẫn lộn giữa lưu luyến và háo hức. Cô biết rằng, một khi đã bước đi, có thể cô sẽ không bao giờ quay lại nơi đây nữa. Nhưng cô cũng tin rằng, phía trước là một thế giới rộng lớn đang chờ đợi cô khám phá.\n\nCon đường mòn dẫn ra khỏi làng phủ đầy lá khô, mỗi bước chân của Dương Tâm đều tạo ra những âm thanh xào xạc. Cô bước đi, không ngoảnh đầu lại, nhưng trong lòng cô, hình ảnh ngôi làng thân yêu vẫn mãi mãi khắc sâu.\n\nCâu chuyện của Dương Tâm chỉ vừa mới bắt đầu. Những thử thách, những cuộc gặp gỡ, và những bí mật đang chờ đợi cô phía trước. Liệu cô có đủ can đảm để vượt qua tất cả? Liệu cô có tìm được điều mà cô hằng tìm kiếm bấy lâu nay? Chỉ có thời gian mới có thể trả lời được.\n\n..."
+            android:textSize="16sp"
+            android:textColor="#424242"
+            android:lineSpacingExtra="8dp"
+            android:fontFamily="serif"/>
+    </ScrollView>
+
+    <!-- Thanh điều hướng dưới cùng -->
+    <LinearLayout
+        android:id="@+id/thanhDieuHuong"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:background="@android:color/white"
+        android:elevation="4dp"
+        android:padding="12dp">
+
+        <!-- Chân trang hiển thị số chương -->
+        <TextView
+            android:id="@+id/chanTrangChuong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Chương 1 / 20"
+            android:textSize="16sp"
+            android:textColor="#FF0133"
+            android:paddingBottom="8dp"
+            android:fontFamily="sans-serif-light"/>
+
+        <!-- Nút điều hướng chương -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/nutChuongTruoc"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:text="Chương trước"
+                android:textSize="14sp"
+                android:background="@drawable/button_enabled"
+                android:textColor="@android:color/white"
+                android:paddingHorizontal="16dp"
+                android:layout_marginEnd="12dp"
+                android:fontFamily="sans-serif-medium"
+                style="@android:style/Widget.Button"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:textAllCaps="false"
+                android:id="@+id/nutChuongSau"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:text="Chương sau"
+                android:textSize="14sp"
+                android:background="@drawable/button_enabled"
+                android:textColor="@android:color/white"
+                android:paddingHorizontal="16dp"
+                android:fontFamily="sans-serif-medium" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

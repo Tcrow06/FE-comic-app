@@ -27,11 +27,19 @@ public class UserService {
     public UserService(String token) {
         apiService = RetrofitClient.getRetrofitWithAuth(token).create(UserAPIService.class);
     }
+    public UserService() {
+        apiService = RetrofitClient.getRetrofitInstance().create(UserAPIService.class);
+    }
 
     public void getUserProfile(ServiceExecutor.CallBack<UserResponse> callback) {
         Call<ApiResponse<UserResponse>> call = apiService.getUserProfile();
         ServiceExecutor.enqueue(call, callback);
     }
+    public void getInfo(String username, ServiceExecutor.CallBack<UserResponse> callback) {
+        Call<ApiResponse<UserResponse>> call = apiService.getInfo(username);
+        ServiceExecutor.enqueue(call, callback);
+    }
+
 
     // active account
     public void activeAccount (

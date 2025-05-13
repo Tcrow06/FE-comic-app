@@ -43,7 +43,7 @@
                 android:scaleType="centerCrop"
                 android:background="@drawable/rounded_bg" />
             <TextView
-                android:id="@+id/imgAuthor"
+                android:id="@+id/txtAuthor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Oda, Eiichiro"
@@ -58,7 +58,7 @@
             android:id="@+id/txtChapter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Chapter 1081"
+            android:text="N.Chapter 0"
             android:textColor="#FF5733"
             android:padding="3dp"
             android:textSize="14sp"

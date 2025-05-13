@@ -52,6 +52,11 @@ public class PrefManager {
         editor.remove(KEY_AUTH_RESPONSE);
         editor.apply();
     }
+    public void clearUserResponse() {
+        editor.remove(KEY_USER_RESPONSE);
+        editor.apply();
+    }
+
 
     public boolean isLoggedIn() {
         return getAuthResponse() != null;
@@ -107,7 +112,7 @@ public class PrefManager {
         TOKEN {
             @Override
             public void apply(AuthenticationResponse resp, String value) {
-                resp.setToken(value);
+                resp.setAccessToken(value);
             }
         },
 

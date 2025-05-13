@@ -10,6 +10,14 @@ import lombok.experimental.FieldDefaults;
 @Builder
 public class AuthenticationResponse {
     Integer isActive;
-    String token;
+    String accessToken;
+    String refreshToken;
     String message;
+
+    String firstName;
+    String lastName;
+    String picture;
+    String username;
+
+
 }
