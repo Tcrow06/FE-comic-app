@@ -285,6 +285,8 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
 
+
+
                 <!-- Nút trái -->
                 <ImageButton
                     android:id="@+id/btnPrev"
@@ -336,6 +338,7 @@
                     android:src="@drawable/un_save" />
 
                 <Button
+                    android:id="@+id/viewComment"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
                     android:layout_marginStart="8dp"
@@ -343,7 +346,7 @@
                     android:textStyle="bold"
                     android:textSize="18dp"
                     android:backgroundTint="#00B894"
-                    android:text="Baca Manga"
+                    android:text="Xem đánh giá"
                     android:textColor="#FFFFFF" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
