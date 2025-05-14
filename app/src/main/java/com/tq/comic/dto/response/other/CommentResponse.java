@@ -19,15 +19,18 @@ public class CommentResponse {
 
     String content;
 
-    UserResponse user;
+    String username;
 
-    String chapterId;
-
-    String parentId;    // Id của user bình luận cha
+    String storyId;
 
     int depth;
 
     Date createAt;
 
     List<CommentResponse> replies = new ArrayList<>();
+
+    public CommentResponse(String username, String content){
+        this.username = username;
+        this.content= content;
+    }
 }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -23,10 +25,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.tq.comic.adapter.ChapterAdapter;
 import com.tq.comic.adapter.ChapterComponentAdapter;
+import com.tq.comic.adapter.CommentAdapter;
+import com.tq.comic.config.PrefManager;
 import com.tq.comic.dto.request.other.FavoriteRequest;
 import com.tq.comic.dto.response.ApiResponse;
 import com.tq.comic.dto.response.authentication.AuthenticationResponse;
 import com.tq.comic.dto.response.chapter.ChapterComponentResponse;
+import com.tq.comic.dto.response.other.CommentResponse;
 import com.tq.comic.dto.response.other.FavoriteResponse;
 import com.tq.comic.dto.response.story.GenerateResponse;
 import com.tq.comic.dto.response.story.StoryResponse;
@@ -54,6 +59,7 @@ public class MangaDetailActivity extends BaseActivity {
     private FavoriteService favoriteService;
     private boolean isSave;
     private String storyCode;
+    private Button viewComment;
 
 
     private int currentPage = 0;
@@ -82,6 +88,7 @@ public class MangaDetailActivity extends BaseActivity {
         headerImage = findViewById(R.id.headerImage);
         chapterRecyclerView = findViewById(R.id.chapterRecyclerView);
         saveStory=findViewById(R.id.btnSaveStory);
+        viewComment= findViewById(R.id.viewComment);
 
         ImageButton btnPrev = findViewById(R.id.btnPrev);
         ImageButton btnNext = findViewById(R.id.btnNext);
@@ -125,6 +132,13 @@ public class MangaDetailActivity extends BaseActivity {
             }
         });
         chapterRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        viewComment.setOnClickListener(v -> {
+            Intent intent = new Intent(MangaDetailActivity.this, CommentActivity.class);
+            intent.putExtra("story_code", story.getCode());
+            startActivity(intent);
+        });
+
     }
 
     private void loadChapters(String storyCode, int page, int size) {

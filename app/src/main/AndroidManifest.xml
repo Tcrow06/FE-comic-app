@@ -41,5 +41,6 @@
         <activity android:name=".MangaDetailActivity"/>
         <activity android:name=".ChapterDetailActivity"/>
         <activity android:name=".OptVerificationActivity"/>
+        <activity android:name=".CommentActivity"/>
     </application>
 </manifest>
