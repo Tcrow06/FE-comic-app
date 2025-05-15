@@ -25,7 +25,7 @@ public interface AuthAPIService {
     @POST("api/auth/login")
     Call<ApiResponse<AuthenticationResponse>> login(@Body LoginRequest request);
 
-    @POST("auth/outbound/authentication")
+    @POST("api/auth/outbound/authentication")
     Call<ApiResponse<AuthenticationResponse>> outBoundAuthentication(@Query("code") String code);
 
     @POST("api/auth/introspect")

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -27,6 +28,7 @@ import com.tq.comic.dto.response.user.UserResponse;
 import com.tq.comic.exception.ErrorResponse;
 import com.tq.comic.service.auth.AuthAPIService;
 import com.tq.comic.service.auth.AuthService;
+import com.tq.comic.service.auth.googleAuth.GoogleSignInService;
 import com.tq.comic.service.callback.ServiceExecutor;
 import com.tq.comic.service.user.UserAPIService;
 import com.tq.comic.service.user.UserService;
@@ -37,13 +39,18 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
     private Button continueButton;
-    private TextView registerText;
+    private TextView registerText,ggButton;
     private String username, password;
 
     private AuthAPIService authApiService;
 
     private UserAPIService userApiService;
+
     private UserResponse userResponse;
+    private GoogleSignInService googleSignInService;
+    private AuthService authService;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
 
         registerText = findViewById(R.id.registerText);
         continueButton = findViewById(R.id.continueButton);
-
+        ggButton = findViewById(R.id.txtGG);
 
         registerText.setOnClickListener(v -> {
             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
@@ -89,6 +96,63 @@ public class LoginActivity extends AppCompatActivity {
 
 
         });
+
+        googleSignInService = new GoogleSignInService(LoginActivity.this);
+        authService = new AuthService();
+        ggButton.setOnClickListener(v -> {
+            googleSignInService.signIn();
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Log.d("LoginActivity", "onActivityResult: " + requestCode + " " + resultCode);
+
+
+        if (requestCode == googleSignInService.getRequestCode()) {
+            googleSignInService.handleSignInResult(data, new GoogleSignInService.SignInCallback() {
+                @Override
+                public void onSuccess(String serverAuthCode) {
+                    // Gửi serverAuthCode về server
+                    authService.outBoundAuthentication(serverAuthCode, new ServiceExecutor.CallBack<AuthenticationResponse>() {
+                        @Override
+                        public void onSuccess(ApiResponse<AuthenticationResponse> result) {
+                                // đăng nhập thành công
+                                Toast.makeText(LoginActivity.this,
+                                        "Đăng nhập thành công!",
+                                        Toast.LENGTH_SHORT).show();
+
+                                // lưu thông tin đăng nhập
+                                PrefManager prefManager = new PrefManager(LoginActivity.this);
+                                prefManager.saveAuthResponse(result.getResult());
+
+                                // chuyển đến main activity
+                                Intent intent = new Intent(LoginActivity.this, MainHomeActivity.class);
+                                startActivity(intent);
+                                finish();
+//
+                        }
+
+                        @Override
+                        public void onFailure(String errorMessage) {
+                            // Đăng nhập thất bại
+                            Toast.makeText(LoginActivity.this,
+                                            "Đăng nhập thất bại: " + errorMessage,
+                                            Toast.LENGTH_LONG)
+                                    .show();
+                        }
+                    });
+
+                }
+
+                @Override
+                public void onFailure(String errorMessage) {
+                    Log.e("SignInError", errorMessage);
+                }
+            });
+        }
     }
 
     private void getProfile(){
