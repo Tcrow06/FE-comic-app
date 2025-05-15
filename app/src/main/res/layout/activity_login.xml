@@ -94,6 +94,7 @@
                     android:src="@drawable/ic_google" />
 
                 <TextView
+                    android:id="@+id/txtGG"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Continue with Google"
